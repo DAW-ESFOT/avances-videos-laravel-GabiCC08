@@ -16,7 +16,6 @@ class ArticlesTableSeeder extends Seeder
         // Vaciar la tabla articles.
         Article::truncate();
         $faker = \Faker\Factory::create();
-
         // Obtenemos la lista de todos los usuarios creados e
         // iteramos sobre cada uno y simulamos un inicio de
         // sesión con cada uno para crear artículos en su nombre
@@ -32,6 +31,7 @@ class ArticlesTableSeeder extends Seeder
                 Article::create([
                     'title' => $faker->sentence,
                     'body' => $faker->paragraph,
+                    'category_id' => $faker->numberBetween(1, 3)
                 ]);
             }
         }
