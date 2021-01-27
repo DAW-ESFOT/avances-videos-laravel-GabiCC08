@@ -15,8 +15,10 @@ class CategoriesTableSeeder extends Seeder
         // Vaciamos la tabla categories
         Category::truncate();
         $faker = \Faker\Factory::create();
+
         for ($i = 0; $i < 3; $i++) {
-            Category::create(['name' => $faker->word]);
+            Category::create([
+                'name' => $faker->word]);
         }
     }
 }
