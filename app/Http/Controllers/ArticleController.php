@@ -26,10 +26,14 @@ class ArticleController extends Controller
         $request->validate([
             'title' => 'required|string|unique:articles|max:255',
             'body' => 'required',
-            'category_id'=>'required|exists:categories.id'
+            'category_id'=>'required|exists:categories.id',
+            'image' => 'required|image|dimensions:min_width=200,min_height=200'
         ],self::$message);
-        $article = Article::create($request->all());
-        return response()->json($article, 201);
+        $article = new Article($request->all());
+        $path = $request->image->store('public/articles');
+        $article->image = $path;
+        $article->save();
+        return response()->json(new ArticleResource($article), 201);
     }
     public function update(Request $request, Article $article){
         $request->validate([
